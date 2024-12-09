@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import './App.css';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom'; // Use HashRouter for GitHub Pages
 
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
@@ -27,16 +28,21 @@ function App() {
   const [user] = useAuthState(auth);
 
   return (
-    <div className="App">
-      <header>
-        <h1>Chat App</h1>
-        <SignOut />
-      </header>
-
-      <section>
-        {user ? <ChatRoom /> : <SignIn />}
-      </section>
-    </div>
+    <Router> 
+      <Routes>
+        <Route path="/" element={
+          <div className="App">
+            <header>
+              <h1>Chat App</h1>
+              <SignOut />
+            </header>
+            <section>
+              {user ? <ChatRoom /> : <SignIn />}
+            </section>
+          </div>
+        } />
+      </Routes>
+    </Router>
   );
 }
 
